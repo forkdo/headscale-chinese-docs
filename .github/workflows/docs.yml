@@ -36,6 +36,9 @@ jobs:
           git clone https://github.com/juanfont/headscale.git docsite
           cd docsite
           git checkout $(cat ../commit.txt)
+      - name: Install Dependencies
+        working-directory: ./docsite
+        run: pip install -r docs/requirements.txt
       - name: Copy Chinese Docs
         run: cp -r docs_zh/* ./docsite/docs/
       - name: Build Site
