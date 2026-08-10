@@ -1,10 +1,10 @@
 # DERP
 
-一个 [DERP (Designated Encrypted Relay for Packets) 服务器](https://tailscale.com/kb/1232/derp-servers) 主要用于在两个节点之间中继流量，当无法建立直接连接时。Headscale 提供了一个嵌入式 DERP 服务器，以确保节点之间的无缝连接。
+一个 [DERP (Designated Encrypted Relay for Packets) 服务器](https://tailscale.com/docs/reference/derp-servers) 主要用于在两个节点之间中继流量，当无法建立直接连接时。Headscale 提供了一个嵌入式 DERP 服务器，以确保节点之间的无缝连接。
 
 ## 配置
 
-DERP 相关设置在 [配置文件](./configuration.md) 的 `derp` 部分中进行配置。以下部分仅使用了可用设置中的一小部分，查看 [示例配置](./configuration.md) 以了解所有可用的配置选项。
+DERP 相关设置在 [配置文件](configuration.md) 的 `derp` 部分中进行配置。以下部分仅使用了可用设置中的一小部分，查看 [示例配置](configuration.md) 以了解所有可用的配置选项。
 
 ### 启用嵌入式 DERP
 
@@ -22,7 +22,7 @@ derp:
 
 ### 移除 Tailscale 的 DERP 服务器
 
-启用后，Headscale 的嵌入式 DERP 会被添加到 Tailscale Inc. 提供的免费 [DERP 服务器](https://tailscale.com/kb/1232/derp-servers) 列表中。若只想使用 Headscale 的嵌入式 DERP 服务器，请禁用默认 DERP 地图的加载：
+启用后，Headscale 的嵌入式 DERP 会被添加到 Tailscale Inc. 提供的免费 [DERP 服务器](https://tailscale.com/docs/reference/derp-servers) 列表中。若只想使用 Headscale 的嵌入式 DERP 服务器，请禁用默认 DERP 地图的加载：
 
 ```yaml title="config.yaml" hl_lines="6"
 derp:
@@ -45,12 +45,12 @@ derp:
 
 === "移除特定 DERP 区域"
 
-    免费的 [DERP 服务器](https://tailscale.com/kb/1232/derp-servers) 通过区域 ID 组织为区域。您可以通过将特定区域的区域 ID 设为 `null` 来明确禁用该区域。以下示例 `derp.yaml` 禁用了纽约 DERP 区域（区域 ID 为 1）：
+    免费的 [DERP 服务器](https://tailscale.com/docs/reference/derp-servers) 通过区域 ID 组织为区域。您可以通过将特定区域的区域 ID 设为 `null` 来明确禁用该区域。以下示例 `derp.yaml` 禁用了纽约 DERP 区域（区域 ID 为 1）：
 
-     ```yaml title="derp.yaml"
-     regions:
-       1: null
-     ```
+    ```yaml title="derp.yaml"
+    regions:
+      1: null
+    ```
 
     使用以下配置向节点提供默认 DERP 地图（排除纽约）：
 
@@ -138,12 +138,11 @@ DERP 服务器的访问可以限制为只允许属于您的 Tailnet 的节点。
 - 显示 DERP 地图：`tailscale debug derp-map`
 - 检查与嵌入式 DERP[^1] 的连接性：`tailscale debug derp headscale`
 
-更多 DERP 相关指标和信息可通过 [指标和调试端点](./debug.md#metrics-and-debug-endpoint) 获取。
-
-[^1]:
-    这假设使用了 [配置文件](./configuration.md) 中的默认区域代码。
+更多 DERP 相关指标和信息可通过 [指标和调试端点](debug.md#metrics-and-debug-endpoint) 获取。
 
 ## 限制
 
 - 内置 DERP 服务器无法用于 Tailscale 的 captive portal 检查，因为它不支持通过 HTTP 在 tcp/80 端口上的 `/generate_204` 端点。
 - 没有速度或吞吐量优化，主要目的是协助节点连接。
+
+[^1]: 这假设使用了 [配置文件](configuration.md) 中的默认区域代码。

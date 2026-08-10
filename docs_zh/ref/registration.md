@@ -7,7 +7,7 @@ Headscale 支持多种节点注册方式。首选的注册方法取决于节点�
 Tailscale 的身份模型区分个人节点和标签节点：
 
 - 个人节点（或用户拥有节点）由个人拥有，通常指代终端用户设备，如笔记本电脑、工作站或手机。终端用户设备由单个用户管理。
-- 标签节点（或服务型节点或非人类节点）为网络提供服务。常见示例包括 Web 服务器和数据库服务器。这些节点通常由一组用户管理。标签节点有一些额外的限制，例如，标签节点不允许通过 [Tailscale SSH](https://tailscale.com/kb/1193/tailscale-ssh) 连接到个人节点。
+- 标签节点（或服务型节点或非人类节点）为网络提供服务。常见示例包括 Web 服务器和数据库服务器。这些节点通常由一组用户管理。标签节点有一些额外的限制，例如，标签节点不允许通过 [Tailscale SSH](https://tailscale.com/docs/features/tailscale-ssh) 连接到个人节点。
 
 Headscale 实现了 Tailscale 的身份模型，并区分个人节点和标签节点，其中个人节点由 Headscale 用户拥有，而标签节点由标签拥有。标签设备被归入特殊用户 `tagged-devices` 下。
 
@@ -23,7 +23,7 @@ Web 认证是注册新节点的默认方法。它是交互式的，客户端发�
 - [Headscale API](api.md)
 - 或通过 [OpenID Connect](oidc.md) 委托给身份提供商
 
-Web 认证依赖于 Headscale 用户的存在。使用 `headscale users` 命令创建一个新用户：
+Web 认证依赖于 Headscale 用户的存在。使用 `headscale users` 命令创建一个新用户[^1]：
 
 ```console
 headscale users create <USER>
@@ -37,17 +37,17 @@ headscale users create <USER>
     tailscale up --login-server <YOUR_HEADSCALE_URL>
     ```
 
-    通常，会打开一个包含进一步说明的浏览器窗口。该页面解释了如何在您的 Headscale 服务器上完成注册，并且还会打印批准节点所需的注册密钥：
+    通常，会打开一个包含进一步说明的浏览器窗口。该页面解释了如何在您的 Headscale 服务器上完成注册，并且还会打印批准节点所需的 Auth ID：
 
     ```console
-    headscale nodes register --user <USER> --key <REGISTRATION_KEY>
+    headscale auth register --user <USER> --auth-id <AUTH_ID>
     ```
 
     恭喜，您的个人节点注册已完成，它应该在 `headscale nodes list` 的输出中显示为“在线”。"User" 列显示 `<USER>` 作为节点的所有者。
 
 === "标签设备"
 
-    您的 Headscale 用户需要被授权注册标签设备。此授权在 [ACL](acls.md) 的 [`tagOwners`](https://tailscale.com/kb/1337/policy-syntax#tag-owners) 部分中指定。一个简单的示例如下：
+    您的 Headscale 用户需要被授权注册标签设备。此授权在 [policy](policy.md) 的 [`tagOwners`](https://tailscale.com/docs/reference/syntax/policy-file#tag-owners) 部分中指定。一个简单的示例如下：
 
     ```json title="用户 alice 可以注册带有 tag:server 标签的节点"
     {
@@ -64,10 +64,10 @@ headscale users create <USER>
     tailscale up --login-server <YOUR_HEADSCALE_URL> --advertise-tags tag:<TAG>
     ```
 
-    通常，会打开一个包含进一步说明的浏览器窗口。该页面解释了如何在您的 Headscale 服务器上完成注册，并且还会打印批准节点所需的注册密钥：
+    通常，会打开一个包含进一步说明的浏览器窗口。该页面解释了如何在您的 Headscale 服务器上完成注册，并且还会打印批准节点所需的 Auth ID：
 
     ```console
-    headscale nodes register --user <USER> --key <REGISTRATION_KEY>
+    headscale auth register --user <USER> --auth-id <AUTH_ID>
     ```
 
     Headscale 会检查 `<USER>` 是否被允许注册具有指定标签的节点，然后将新节点的所有权转移给特殊用户 `tagged-devices`。标签节点的注册已完成，它应该在 `headscale nodes list` 的输出中显示为“在线”。"User" 列显示 `tagged-devices` 作为节点的所有者。请参阅 "Tags" 列以查看分配的标签列表。
@@ -78,7 +78,7 @@ headscale users create <USER>
 
 === "个人设备"
 
-    个人节点总是分配给一个 Headscale 用户。使用 `headscale users` 命令创建一个新用户：
+    个人节点总是分配给一个 Headscale 用户。使用 `headscale users` 命令创建一个新用户[^1]：
 
     ```console
     headscale users create <USER>
@@ -113,3 +113,5 @@ headscale users create <USER>
     ```
 
     标签节点的注册已完成，它应该在 `headscale nodes list` 的输出中显示为“在线”。"User" 列显示 `tagged-devices` 作为节点的所有者。请参阅 "Tags" 列以查看分配的标签列表。
+
+[^1]: [请确保 Headscale 用户名不以 `@` 结尾。](oidc.md#reference-a-user-in-the-policy)

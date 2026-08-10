@@ -2,15 +2,15 @@
 
 Headscale 和 Tailscale 提供了调试和内省功能，当事情没有按预期工作时，这些功能会很有帮助。本页面解释了一些调试技术，以帮助定位问题。
 
-请同时查看 [Tailscale 的故障排除指南](https://tailscale.com/kb/1023/troubleshooting)。它提供了许多提示和建议来排除常见问题。
+请同时查看 [Tailscale 的故障排除指南](https://tailscale.com/docs/reference/troubleshooting)。它提供了许多提示和建议来排除常见问题。
 
 ## Tailscale
 
 Tailscale 客户端本身提供了许多命令来检查其状态以及网络状态：
 
-- [检查本地网络状况](https://tailscale.com/kb/1080/cli#netcheck): `tailscale netcheck`
-- [获取客户端状态](https://tailscale.com/kb/1080/cli#status): `tailscale status --json`
-- [获取 DNS 状态](https://tailscale.com/kb/1080/cli#dns): `tailscale dns status --all`
+- [检查本地网络状况](https://tailscale.com/docs/reference/tailscale-cli#netcheck): `tailscale netcheck`
+- [获取客户端状态](https://tailscale.com/docs/reference/tailscale-cli#status): `tailscale status --json`
+- [获取 DNS 状态](https://tailscale.com/docs/reference/tailscale-cli#dns): `tailscale dns status --all`
 - 客户端日志: `tailscale debug daemon-logs`
 - 客户端网络图: `tailscale debug netmap`
 - 测试 DERP 连接: `tailscale debug derp headscale`
@@ -50,17 +50,17 @@ Headscale 提供了一个指标和调试端点。它允许检查不同方面，�
 
 - Go 运行时信息、内存使用情况和统计信息
 - 已连接节点和待处理注册
-- 活跃的 ACL、过滤器和 SSH 策略
+- 活跃的策略、过滤器和 SSH 策略
 - 当前 DERPMap
 - Prometheus 指标
 
 !!! warning "保持指标和调试端点私有"
 
-    监听地址和端口可以通过 [配置文件](./configuration.md) 中的 `metrics_listen_addr` 变量进行配置。默认情况下它监听在 localhost，端口 9090。
+    监听地址和端口可以通过 [配置文件](configuration.md) 中的 `metrics_listen_addr` 变量进行配置。默认情况下它监听在 localhost，端口 9090。
 
     将指标和调试端点保持在内部网络中私有，不要将其暴露到互联网。
 
-    可以通过在 [配置文件](./configuration.md) 中设置 `metrics_listen_addr: null` 来完全禁用指标和调试接口。
+    可以通过在 [配置文件](configuration.md) 中设置 `metrics_listen_addr: null` 来完全禁用指标和调试接口。
 
 通过 <http://localhost:9090/metrics> 查询指标，并通过 <http://localhost:9090/debug/> 获取可用调试信息的概览。可以从 localhost 外部查询指标，但调试接口受到额外保护，即使监听在所有接口上。
 

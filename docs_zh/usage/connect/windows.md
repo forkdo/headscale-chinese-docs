@@ -30,7 +30,7 @@ tailscale login --login-server <YOUR_HEADSCALE_URL>
 - 启用 `Run unattended`
 - 确认“无人值守模式”消息
 
-另请参阅 [在我未登录计算机时保持 Tailscale 运行](https://tailscale.com/kb/1088/run-unattended)
+另请参阅 [在我未登录计算机时保持 Tailscale 运行](https://tailscale.com/docs/how-to/run-unattended)。
 
 ### 节点注册失败
 
@@ -50,7 +50,6 @@ tailscale login --login-server <YOUR_HEADSCALE_URL>
 
 要重置并重新尝试，请务必执行以下操作：
 
-1. 关闭 Tailscale 服务（或托盘中的客户端）
-2. 删除 Tailscale 应用程序数据文件夹，该文件夹位于 `C:\Users\<USERNAME>\AppData\Local\Tailscale`，然后重新尝试连接。
-3. 确保从 headscale 中删除 Windows 节点（以确保全新设置）
-4. 在 Windows 机器上启动 Tailscale 并重新尝试登录。
+1. 删除 Tailscale 应用程序数据文件夹，该文件夹位于 `C:\Users\<USERNAME>\AppData\Local\Tailscale`，然后重新尝试连接。
+2. 确保从 headscale 中删除 Windows 节点（以确保全新设置）
+3. 在 Windows 机器上启动 Tailscale 并重新尝试登录。

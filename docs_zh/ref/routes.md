@@ -1,6 +1,6 @@
 # 路由
 
-Headscale 支持路由通告，可用于管理 tailnet 的[子网路由器](https://tailscale.com/kb/1019/subnets)和[出口节点](https://tailscale.com/kb/1103/exit-nodes)。
+Headscale 支持路由通告，可用于管理 tailnet 的[子网路由器](https://tailscale.com/docs/features/subnet-routers)和[出口节点](https://tailscale.com/docs/features/exit-nodes)。
 
 - [子网路由器](#subnet-router)可用于将现有网络（例如虚拟私有云或本地网络）连接到您的 tailnet。使用子网路由器可以访问无法安装 Tailscale 的设备，或逐步部署 Tailscale。
 - [出口节点](#exit-node)可用于为另一个 Tailscale 节点路由所有互联网流量。使用它可以在不可信的 Wi-Fi 上安全地访问互联网，或访问期望来自特定 IP 地址的流量的在线服务。
@@ -62,27 +62,27 @@ ID | Hostname | Approved       | Available      | Serving (Primary)
 $ sudo tailscale set --accept-routes
 ```
 
-请参考官方的 [Tailscale 文档](https://tailscale.com/kb/1019/subnets#use-your-subnet-routes-from-other-devices) 了解如何在不同操作系统上使用子网路由器。
+请参考官方的 [Tailscale 文档](https://tailscale.com/docs/features/subnet-routers#use-your-subnet-routes-from-other-devices) 了解如何在不同操作系统上使用子网路由器。
 
-### 使用 ACL 限制子网路由器的使用
+### 使用策略限制子网路由器的使用
 
-子网路由器通告的路由对 tailnet 中的节点可用。默认情况下，如果没有启用 ACL，所有节点都可以接受和使用此类路由。配置 ACL 以明确管理谁可以使用路由。
+子网路由器通告的路由对 tailnet 中的节点可用。默认情况下，如果没有启用策略，所有节点都可以接受和使用此类路由。配置策略以明确管理谁可以使用路由。
 
-下面的 ACL 片段定义了三个主机：子网路由器 `router`、常规节点 `node` 和可通过子网路由器 `router` 上的路由访问的内部服务 `service.example.net`。它允许节点 `node` 访问可通过子网路由器访问的 `service.example.net` 的 80 和 443 端口。对子网路由器本身的访问被拒绝。
+下面的策略片段定义了三个主机：子网路由器 `router`、常规节点 `node` 和可通过子网路由器 `router` 上的路由访问的内部服务 `service.example.net`。它允许节点 `node` 访问可通过子网路由器访问的 `service.example.net` 的 80 和 443 端口。对子网路由器本身的访问被拒绝。
 
 ```json title="Access the routes of a subnet router without the subnet router itself"
 {
   "hosts": {
-    // the router is not referenced but announces 192.168.0.0/24"
+    // the router is not referenced but announces 192.168.0.0/24
     "router": "100.64.0.1/32",
     "node": "100.64.0.2/32",
     "service.example.net": "192.168.0.1/32"
   },
-  "acls": [
+  "grants": [
     {
-      "action": "accept",
       "src": ["node"],
-      "dst": ["service.example.net:80,443"]
+      "dst": ["service.example.net"],
+      "ip": ["80,443"]
     }
   ]
 }
@@ -90,9 +90,9 @@ $ sudo tailscale set --accept-routes
 
 ### 自动批准子网路由器的路由
 
-子网路由器的初始设置通常需要在控制服务器上手动批准其通告的路由，然后 tailnet 中的节点才能使用它们。Headscale 支持 ACL 的 `autoApprovers` 部分来自动批准子网路由器提供的路由。
+子网路由器的初始设置通常需要在控制服务器上手动批准其通告的路由，然后 tailnet 中的节点才能使用它们。Headscale 支持策略中的 `autoApprovers` 部分来自动批准子网路由器提供的路由。
 
-下面的 ACL 片段定义了由用户 `alice` 拥有的标签 `tag:router`。此标签用于 `autoApprovers` 部分的 `routes`。一旦通告了标签 `tag:router` 的子网路由器通告 IPv4 路由 `192.168.0.0/24`，该路由将自动被批准。
+下面的策略片段定义了由用户 `alice` 拥有的标签 `tag:router`。此标签用于 `autoApprovers` 部分的 `routes`。一旦通告了标签 `tag:router` 的子网路由器通告 IPv4 路由 `192.168.0.0/24`，该路由将自动被批准。
 
 ```json title="Subnet routers tagged with tag:router are automatically approved"
 {
@@ -104,7 +104,7 @@ $ sudo tailscale set --accept-routes
       "192.168.0.0/24": ["tag:router"]
     }
   },
-  "acls": [
+  "grants": [
     // more rules
   ]
 }
@@ -116,7 +116,7 @@ $ sudo tailscale set --accept-routes
 $ sudo tailscale up --login-server <YOUR_HEADSCALE_URL> --advertise-tags tag:router --advertise-routes 192.168.0.0/24
 ```
 
-请参见[官方 Tailscale 文档](https://tailscale.com/kb/1337/acl-syntax#autoapprovers)以获取有关自动批准者的更多信息。
+请参见[官方 Tailscale 文档](https://tailscale.com/docs/reference/syntax/policy-file#autoapprovers)以获取有关自动批准者的更多信息。
 
 ## 出口节点
 
@@ -175,19 +175,19 @@ ID | Hostname | Approved  | Available | Serving (Primary)
 $ sudo tailscale set --exit-node myexit
 ```
 
-请参考官方的 [Tailscale 文档](https://tailscale.com/kb/1103/exit-nodes#use-the-exit-node) 了解如何在不同操作系统上使用出口节点。
+请参考官方的 [Tailscale 文档](https://tailscale.com/docs/features/exit-nodes#use-the-exit-node) 了解如何在不同操作系统上使用出口节点。
 
-### 使用 ACL 限制出口节点的使用
+### 使用策略限制出口节点的使用
 
-出口节点提供给 tailnet 中的所有节点。默认情况下，如果没有启用 ACL，tailnet 中的所有节点都可以选择和使用出口节点。在 ACL 规则中配置 `autogroup:internet` 以限制谁可以使用_任何_可用的出口节点。
+出口节点提供给 tailnet 中的所有节点。默认情况下，如果没有启用策略，tailnet 中的所有节点都可以选择和使用出口节点。在策略规则中配置 `autogroup:internet` 以限制谁可以使用_任何_可用的出口节点。
 
 ```json title="Example use of autogroup:internet"
 {
-  "acls": [
+  "grants": [
     {
-      "action": "accept",
       "src": ["..."],
-      "dst": ["autogroup:internet:*"]
+      "dst": ["autogroup:internet"],
+      "ip": ["*"]
     }
   ]
 }
@@ -195,39 +195,36 @@ $ sudo tailscale set --exit-node myexit
 
 ### 按用户或组限制对出口节点的访问
 
-用户可以使用 `autogroup:internet` 使用_任何_可用的出口节点。或者，下面的 ACL 片段为每个用户分配一个特定的出口节点，同时隐藏所有其他出口节点。用户 `alice` 只能使用出口节点 `exit1`，而用户 `bob` 只能使用出口节点 `exit2`。
+用户可以使用 `autogroup:internet` 使用_任何_可用的出口节点。或者，下面的策略片段为每个用户分配一个特定的出口节点，同时隐藏所有其他出口节点。用户 `alice` 只能使用带有 `tag:exit1` 标签的出口节点，而用户 `bob` 只能使用带有 `tag:exit2` 标签的出口节点。
 
 ```json title="Assign each user a dedicated exit node"
 {
-  "hosts": {
-    "exit1": "100.64.0.1/32",
-    "exit2": "100.64.0.2/32"
+  "tagOwners": {
+    "tag:exit1": ["alice@"],
+    "tag:exit2": ["bob@"]
   },
-  "acls": [
+  "grants": [
     {
-      "action": "accept",
       "src": ["alice@"],
-      "dst": ["exit1:*"]
+      "dst": ["autogroup:internet"],
+      "via": ["tag:exit1"],
+      "ip": ["*"]
     },
     {
-      "action": "accept",
       "src": ["bob@"],
-      "dst": ["exit2:*"]
+      "dst": ["autogroup:internet"],
+      "via": ["tag:exit2"],
+      "ip": ["*"]
     }
   ]
 }
 ```
 
-!!! warning
-
-    - 上述实现是 Headscale 特有的，一旦[支持 `via`](https://github.com/juanfont/headscale/issues/2409) 可用，可能会被移除。
-    - 请注意，用户也可以连接到出口节点本身的任何端口。
-
 ### 使用自动批准者自动批准出口节点
 
-出口节点的初始设置通常需要在控制服务器上手动批准，然后 tailnet 中的节点才能使用它。Headscale 支持 ACL 的 `autoApprovers` 部分来自动批准新的出口节点，一旦它加入 tailnet。
+出口节点的初始设置通常需要在控制服务器上手动批准，然后 tailnet 中的节点才能使用它。Headscale 支持策略中的 `autoApprovers` 部分来自动批准新的出口节点，一旦它加入 tailnet。
 
-下面的 ACL 片段定义了由用户 `alice` 拥有的标签 `tag:exit`。此标签用于 `autoApprovers` 部分的 `exitNode`。通告标签 `tag:exit` 的新出口节点将自动被批准：
+下面的策略片段定义了由用户 `alice` 拥有的标签 `tag:exit`。此标签用于 `autoApprovers` 部分的 `exitNode` 条目。通告标签 `tag:exit` 的新出口节点将自动被批准：
 
 ```json title="Exit nodes tagged with tag:exit are automatically approved"
 {
@@ -237,7 +234,7 @@ $ sudo tailscale set --exit-node myexit
   "autoApprovers": {
     "exitNode": ["tag:exit"]
   },
-  "acls": [
+  "grants": [
     // more rules
   ]
 }
@@ -249,18 +246,16 @@ $ sudo tailscale set --exit-node myexit
 $ sudo tailscale up --login-server <YOUR_HEADSCALE_URL> --advertise-tags tag:exit --advertise-exit-node
 ```
 
-请参见[官方 Tailscale 文档](https://tailscale.com/kb/1337/acl-syntax#autoapprovers)以获取有关自动批准者的更多信息。
+请参见[官方 Tailscale 文档](https://tailscale.com/docs/reference/syntax/policy-file#autoapprovers)以获取有关自动批准者的更多信息。
 
 ## 高可用性
 
-Headscale 对高可用性路由的支持有限。用户可以使用多个具有重叠路由的子网路由器或多个出口节点来实现高可用性。如果一个路由器节点离线，另一个节点可以继续为客户端提供相同的路由。详情请参见官方的 [Tailscale 高可用性文档](https://tailscale.com/kb/1115/high-availability#subnet-router-high-availability)。
+Headscale 支持高可用性路由。用户可以使用多个具有重叠路由的子网路由器或多个出口节点来实现高可用性。如果一个路由器节点离线，另一个节点可以继续为客户端提供相同的路由。详情请参见官方的 [Tailscale 高可用性文档](https://tailscale.com/docs/how-to/set-up-high-availability#subnet-router-high-availability)。
 
-!!! bug
-
-    在某些情况下，Headscale 可能需要长达 16 分钟才能检测到节点离线。如果将此类节点用作子网路由器或出口节点，故障转移节点可能无法及时被选中，从而导致客户端服务中断。更多信息请参见 [issue 2129](https://github.com/juanfont/headscale/issues/2129)。
+此功能在至少有两个节点通告相同前缀时默认启用。详见 [配置文件](configuration.md) 中的配置选项 `node.routes.ha`。
 
 ## 故障排除
 
 ### 启用 IP 转发
 
-子网路由器或出口节点代表其他节点路由流量，因此需要启用 IP 转发。请查看官方的 [Tailscale 文档](https://tailscale.com/kb/1019/subnets/?tab=linux#enable-ip-forwarding) 了解如何启用 IP 转发。
+子网路由器或出口节点代表其他节点路由流量，因此需要启用 IP 转发。请查看官方的 [Tailscale 文档](https://tailscale.com/docs/features/subnet-routers#enable-ip-forwarding) 了解如何启用 IP 转发。

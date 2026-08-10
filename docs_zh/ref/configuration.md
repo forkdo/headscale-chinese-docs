@@ -17,8 +17,8 @@
 
     === "在 GitHub 上查看"
 
-        * 开发版本：<https://github.com/juanfont/headscale/blob/main/config-example.yaml>
-        * 版本 {{ headscale.version }}：<https://github.com/juanfont/headscale/blob/v{{ headscale.version }}/config-example.yaml>
+        - 开发版本：<https://github.com/juanfont/headscale/blob/main/config-example.yaml>
+        - 版本 {{ headscale.version }}：https://github.com/juanfont/headscale/blob/v{{ headscale.version }}/config-example.yaml
 
     === "使用 `wget` 下载"
 

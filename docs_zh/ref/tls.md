@@ -50,7 +50,7 @@ Headscale 使用 [autocert](https://pkg.go.dev/golang.org/x/crypto/acme/autocert
 如需验证证书续订是否成功完成，可以手动或通过外部监控软件进行检查。以下是两种手动检查的示例：
 
 1. 在浏览器中打开 Headscale 服务器的 URL，手动检查收到的证书的到期日期。
-2. 或者，使用 `openssl` 从命令行远程检查：
+1. 或者，使用 `openssl` 从命令行远程检查：
 
 ```console
 $ openssl s_client -servername [hostname] -connect [hostname]:443 | openssl x509 -noout -dates

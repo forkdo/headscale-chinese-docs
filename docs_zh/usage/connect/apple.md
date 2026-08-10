@@ -24,7 +24,7 @@
 
 ### 安装
 
-选择适用于 macOS 的任意一款可用的 [Tailscale 客户端](https://tailscale.com/kb/1065/macos-variants) 并安装。
+选择适用于 macOS 的任意一款可用的 [Tailscale 客户端](https://tailscale.com/docs/concepts/macos-variants) 并安装。
 
 ### 配置 headscale URL
 

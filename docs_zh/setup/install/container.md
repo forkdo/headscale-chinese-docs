@@ -6,7 +6,7 @@
 
     **内容可能已过时，且可能遗漏必要步骤**。
 
-本文档旨在向用户展示如何在容器中设置和运行 headscale。需要容器运行时环境，例如 [Docker](https://www.docker.com) 或 [Podman](https://podman.io)。容器镜像可在 [Docker Hub](https://hub.docker.com/r/headscale/headscale) 和 [GitHub 容器镜像仓库](https://github.com/juanfont/headscale/pkgs/container/headscale) 上找到。容器镜像 URL 如下：
+需要容器运行时环境，例如 [Docker](https://www.docker.com) 或 [Podman](https://podman.io)。容器镜像可在 [Docker Hub](https://hub.docker.com/r/headscale/headscale) 和 [GitHub 容器镜像仓库](https://github.com/juanfont/headscale/pkgs/container/headscale) 上找到。容器镜像 URL 如下：
 
 - [Docker Hub](https://hub.docker.com/r/headscale/headscale)：`docker.io/headscale/headscale:<VERSION>`
 - [GitHub 容器镜像仓库](https://github.com/juanfont/headscale/pkgs/container/headscale)：
@@ -14,16 +14,16 @@
 
 ## 配置并运行 headscale
 
-1.  在容器主机上创建一个目录，用于存储 headscale 的[配置](../../ref/configuration.md)和 [SQLite](https://www.sqlite.org/) 数据库：
+1. 在容器主机上创建一个目录，用于存储 headscale 的[配置](../../ref/configuration.md)和 SQLite 数据库：
 
     ```shell
     mkdir -p ./headscale/{config,lib}
     cd ./headscale
     ```
 
-1.  下载适用于您所选版本的示例配置文件，并将其保存为：`$(pwd)/config/config.yaml`。根据您的本地环境调整配置。详细信息请参阅[配置](../../ref/configuration.md)。
+1. 下载适用于您所选版本的示例配置文件，并将其保存为：`$(pwd)/config/config.yaml`。根据您的本地环境调整配置。详细信息请参阅[配置](../../ref/configuration.md)。
 
-1.  在先前创建的 `./headscale` 目录中启动 headscale：
+1. 在先前创建的 `./headscale` 目录中启动 headscale：
 
     ```shell
     docker run \
@@ -67,7 +67,7 @@
             test: ["CMD", "headscale", "health"]
     ```
 
-1.  验证 headscale 是否正在运行：
+1. 验证 headscale 是否正在运行：
 
     跟踪容器日志：
 
@@ -91,7 +91,7 @@
 
 ## 调试在 Docker 中运行的 headscale
 
-Headscale 容器镜像基于“无发行版”（distroless）镜像，不包含 shell 或任何其他调试工具。如果您需要调试在 Docker 容器中运行的 headscale，可以使用 `-debug` 变体，例如 `docker.io/headscale/headscale:x.x.x-debug`。
+Headscale 容器镜像基于 distroless 镜像，不包含 shell 或任何其他调试工具。如果您需要调试在 Docker 容器中运行的 headscale，可以使用 `-debug` 变体，例如 `docker.io/headscale/headscale:x.x.x-debug`。
 
 ### 运行调试版 Docker 容器
 

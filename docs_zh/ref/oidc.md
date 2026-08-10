@@ -36,9 +36,9 @@ OpenID 需要在 Headscale 和身份提供商中进行配置：
 
 === "身份提供商"
 
-    * 创建新的机密客户端（`客户端 ID`、`客户端密钥`）
-    * 将 Headscale 的 OIDC 回调 URL 添加为有效重定向 URL：`https://headscale.example.com/oidc/callback`
-    * 配置其他参数以改善用户体验，例如：名称、描述、徽标等
+    - 创建新的机密客户端（`客户端 ID`、`客户端密钥`）
+    - 将 Headscale 的 OIDC 回调 URL 添加为有效重定向 URL：`https://headscale.example.com/oidc/callback`
+    - 配置其他参数以改善用户体验，例如：名称、描述、徽标等
 
 ### 启用 PKCE（推荐）
 
@@ -57,8 +57,8 @@ OpenID 需要在 Headscale 和身份提供商中进行配置：
 
 === "身份提供商"
 
-    * 为 headscale 客户端启用 PKCE
-    * 将 PKCE 质询方法设置为 "S256"
+    - 为 headscale 客户端启用 PKCE
+    - 将 PKCE 质询方法设置为 "S256"
 
 ### 使用过滤器授权用户
 
@@ -66,10 +66,10 @@ Headscale 允许根据用户的域名、电子邮件地址或组成员身份过�
 
 === "允许的域名"
 
-    * 将每个身份验证用户的电子邮件域名与允许的域名列表进行比对，仅授权电子邮件域名与 `example.com` 匹配的用户。
-    * 除非[禁用了电子邮件验证](#control-email-verification)，否则需要经过验证的电子邮件地址。
-    * 允许访问：`alice@example.com`
-    * 拒绝访问：`bob@example.net`
+    - 将每个身份验证用户的电子邮件域名与允许的域名列表进行比对，仅授权电子邮件域名与 `example.com` 匹配的用户。
+    - 除非[禁用了电子邮件验证](#control-email-verification)，否则需要经过验证的电子邮件地址。
+    - 允许访问：`alice@example.com`
+    - 拒绝访问：`bob@example.net`
 
     ```yaml hl_lines="5-6"
     oidc:
@@ -82,10 +82,10 @@ Headscale 允许根据用户的域名、电子邮件地址或组成员身份过�
 
 === "允许的用户/电子邮件"
 
-    * 将每个身份验证用户的电子邮件地址与允许的电子邮件地址列表进行比对，仅授权电子邮件属于 `allowed_users` 列表的用户。
-    * 除非[禁用了电子邮件验证](#control-email-verification)，否则需要经过验证的电子邮件地址。
-    * 允许访问：`alice@example.com`、`bob@example.net`
-    * 拒绝访问：`mallory@example.net`
+    - 将每个身份验证用户的电子邮件地址与允许的电子邮件地址列表进行比对，仅授权电子邮件属于 `allowed_users` 列表的用户。
+    - 除非[禁用了电子邮件验证](#control-email-verification)，否则需要经过验证的电子邮件地址。
+    - 允许访问：`alice@example.com`、`bob@example.net`
+    - 拒绝访问：`mallory@example.net`
 
     ```yaml hl_lines="5-7"
     oidc:
@@ -99,9 +99,9 @@ Headscale 允许根据用户的域名、电子邮件地址或组成员身份过�
 
 === "允许的组"
 
-    * 使用每个身份验证用户的 OIDC `groups` 声明获取其组成员身份，仅授权至少属于其中一个引用组的用户。
-    * 允许访问：`headscale_users` 组中的用户
-    * 拒绝访问：无组用户、有其他组的用户
+    - 使用每个身份验证用户的 OIDC `groups` 声明获取其组成员身份，仅授权至少属于其中一个引用组的用户。
+    - 允许访问：`headscale_users` 组中的用户
+    - 拒绝访问：无组用户、有其他组的用户
 
     ```yaml hl_lines="5-7"
     oidc:
@@ -129,22 +129,18 @@ oidc:
 
 ### 自定义节点过期时间
 
-节点过期时间是指节点通过 OpenID Connect 进行身份验证后，直到过期并需要重新进行身份验证的时间量。默认节点过期时间为 180 天。这可以自定义，也可以设置为访问令牌的过期时间。
+节点过期时间是指节点通过 OpenID Connect 进行身份验证后，直到过期并需要重新进行身份验证的时间量。默认节点过期时间可通过顶级的 `node.expiry` 设置进行配置。
 
 === "自定义节点过期时间"
 
-    ```yaml hl_lines="5"
-    oidc:
-      issuer: "https://sso.example.com"
-      client_id: "headscale"
-      client_secret: "generated-secret"
+    ```yaml hl_lines="2"
+    node:
       expiry: 30d   # 使用 0 禁用节点过期
     ```
 
 === "使用访问令牌的过期时间"
 
     请记住，访问令牌通常是短期令牌，会在几分钟内过期。您必须配置身份提供商中的令牌过期时间，以避免频繁重新进行身份验证。
-
 
     ```yaml hl_lines="5"
     oidc:
@@ -157,6 +153,7 @@ oidc:
 !!! tip "使节点过期并强制重新进行身份验证"
 
     可通过以下方式立即使节点过期：
+
     ```console
     headscale node expire -i <NODE_ID>
     ```
@@ -167,15 +164,40 @@ oidc:
 
 - 电子邮件地址
 - 用户名
-- 提供商标识符（仅在数据库中或从身份提供商获取）
+- 提供商标识符（此值目前仅可从 [API](api.md)、数据库或直接从您的身份提供商获取）
 
 !!! note "策略中的用户标识符必须包含单个 `@`"
 
-    Headscale 策略需要单个 `@` 来引用用户。如果用户名或提供商标识符不包含单个 `@`，则需要在末尾添加。例如：用户名 `ssmith` 必须写为 `ssmith@` 才能在策略中正确识别为用户。
+    Headscale 策略需要单个 `@` 来引用用户。如果用户名或提供商标识符不包含单个 `@`，则需要在末尾添加。例如：Headscale 用户名 `ssmith` 必须写为 `ssmith@` 才能在策略中正确识别为用户。
+
+    请确保 Headscale 用户名本身不以 `@` 结尾。
 
 !!! warning "用户可能会更新电子邮件地址或用户名"
 
     许多身份提供商允许用户更新自己的配置文件。根据身份提供商及其配置，用户名或电子邮件地址的值可能会随时间而变化。这可能会对 Headscale 产生意外后果，策略可能不再起作用，或者用户可能通过劫持现有用户名或电子邮件地址获得更多访问权限。
+
+!!! tip "如何在策略中使用提供商标识符"
+
+    提供商标识符唯一地标识一个 OIDC 用户，行为规范良好的身份提供商保证该值对特定用户永不改变。它通常是一个不透明的长字符串，其值目前仅可从 [API](api.md)、数据库或直接从您的身份提供商获取。
+
+    使用带有 `/api/v1/user` 端点的 [API](api.md) 来获取提供商标识符（`providerId`）。该值（如果提供商标识符本身不包含 `@`，请确保在其末尾附加 `@`）可直接用于在策略中引用用户。为了提高策略的可读性，可以使用 `groups` 部分作为别名：
+
+    ```json
+    {
+      "groups": {
+        "group:alice": [
+          "https://sso.example.com/oauth2/openid/59ac9125-c31b-46c5-814e-06242908cf57@"
+        ]
+      },
+      "grants": [
+        {
+          "src": ["group:alice"],
+          "dst": ["*"],
+          "ip": ["*"]
+        }
+      ]
+    }
+    ```
 
 ## 支持的 OIDC 声明
 
@@ -193,7 +215,7 @@ Headscale 使用[标准 OIDC 声明](https://openid.net/specs/openid-connect-cor
 ## 限制
 
 - 对 OpenID Connect 的支持旨在实现通用性和供应商独立性。它仅对特定身份提供商的特殊情况提供有限支持。
-- OIDC 组不能用于 ACL。
+- OIDC 组不能用于策略规则。
 - 身份提供商提供的用户名必须符合以下模式：
     - 用户名长度必须至少为两个字符。
     - 它只能包含字母、数字、连字符、点、下划线和最多一个 `@`。
@@ -222,10 +244,11 @@ Authelia 完全受 Headscale 支持。
 
 - Authentik 完全受 Headscale 支持。
 - [Headscale 不支持 JSON Web 加密](https://github.com/juanfont/headscale/issues/2446)。请在提供程序部分将 `Encryption Key` 字段留空。
+- 请参阅 Authentik 的 [Integrate with Headscale](https://integrations.goauthentik.io/networking/headscale/)
 
 ### Google OAuth
 
-!!! warning "由于缺少 preferred_username，因此没有用户名"
+!!! warning "由于缺少 preferred_username 声明，因此没有用户名"
 
     当请求 `profile` 范围时，Google OAuth 不会发送 `preferred_username` 声明。Headscale 中的用户名将显示为空白/未设置。
 
@@ -237,21 +260,25 @@ Authelia 完全受 Headscale 支持。
 
 #### 步骤
 
-1. 访问 [Google Console](https://console.cloud.google.com) 并登录，如果没有账户，请创建一个。
-2. 创建一个项目（如果您还没有项目）。
-3. 在左侧菜单中，转到 `API 和服务` -> `凭据`
-4. 点击 `创建凭据` -> `OAuth 客户端 ID`
-5. 在 `应用类型` 下，选择 `Web 应用`
-6. 对于 `名称`，输入您喜欢的任何名称
-7. 在 `已授权的跳转 URI` 下，添加 Headscale 的 OIDC 回调 URL：`https://headscale.example.com/oidc/callback`
-8. 点击表单底部的 `保存`
-9. 记下 `客户端 ID` 和 `客户端密钥`，如果需要，也可以下载以供参考。
-10. [按照“基本配置”步骤配置 Headscale](#basic-configuration)。Google OAuth 的颁发者 URL 为：`https://accounts.google.com`。
+1. 创建一个项目（如果您还没有项目）。
+1. 在左侧菜单中，转到 `API 和服务` -> `凭据`
+1. 点击 `创建凭据` -> `OAuth 客户端 ID`
+1. 在 `应用类型` 下，选择 `Web 应用`
+1. 对于 `名称`，输入您喜欢的任何名称
+1. 在 `已授权的跳转 URI` 下，添加 Headscale 的 OIDC 回调 URL：`https://headscale.example.com/oidc/callback`
+1. 点击表单底部的 `保存`
+1. 记下 `客户端 ID` 和 `客户端密钥`，如果需要，也可以下载以供参考。
+1. [按照“基本配置”步骤配置 Headscale](#basic-configuration)。Google OAuth 的颁发者 URL 为：`https://accounts.google.com`。
 
 ### Kanidm
 
 - Kanidm 完全受 Headscale 支持。
 - [允许的组过滤器](#authorize-users-with-filters) 的组需要使用其完整的 SPN 指定，例如：`headscale_users@sso.example.com`。
+- Kanidm 默认将完整的 SPN（`alice@sso.example.com`）作为 `preferred_username` 发送。Headscale 将此值存储为用户名，这可能会令人困惑，因为用户名和电子邮件字段现在都包含了看起来像电子邮件地址的值。[Kanidm 可以配置为改为发送短用户名作为 `preferred_username` 属性](https://kanidm.github.io/kanidm/stable/integrations/oauth2.html#short-names)：
+    ```console
+    kanidm system oauth2 prefer-short-username <client name>
+    ```
+    配置完成后，Headscale 中的短用户名将为 `alice`，并可在策略中作为 `alice@` 引用。
 
 ### Keycloak
 
@@ -289,3 +316,9 @@ oidc:
 ```
 
 [允许的组过滤器](#authorize-users-with-filters) 的组需要使用其组 ID（UUID）而不是组名来指定。
+
+## 切换 OIDC 提供商
+
+Headscale 在其配置中仅支持单个 OIDC 提供商，但它确实会存储每个用户的提供商标识符。切换提供商时，这可能会导致现有用户出现问题：所有用户详细信息（姓名、电子邮件、组）可能与新提供商完全相同，但标识符会不同。Headscale 将无法创建新用户，因为现有用户的姓名和电子邮件已被占用。
+
+目前，您需要为 `users` 表中每个用户手动更新 `provider_identifier` 列，将其设为新提供商的相应值。该标识符由 OIDC ID 令牌的 `iss` 和 `sub` 声明构成，例如 `https://id.example.com/12340987`。

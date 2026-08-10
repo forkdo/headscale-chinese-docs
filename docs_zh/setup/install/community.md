@@ -1,6 +1,6 @@
 # 社区软件包
 
-多个 Linux 发行版和社区成员为 headscale 提供了软件包。这些软件包可以替代 headscale 维护者提供的[官方发行版](./official.md)。此类软件包针对其目标操作系统提供了更好的集成，通常具有以下特点：
+多个 Linux 发行版和社区成员为 headscale 提供了软件包。这些软件包可以替代 headscale 维护者提供的[官方发行版](official.md)。此类软件包针对其目标操作系统提供了更好的集成，通常具有以下特点：
 
 - 设置专用本地用户账户来运行 headscale
 - 提供默认配置
@@ -8,7 +8,7 @@
 
 !!! warning "社区软件包可能已过时"
 
-    此页面上提到的软件包可能已过时或无人维护。请使用[官方发行版](./official.md)获取当前稳定版本或测试预发行版本。
+    此页面上提到的软件包可能已过时或无人维护。请使用[官方发行版](official.md)获取当前稳定版本或[测试预发行版本](main.md)。
 
     [![Packaging status](https://repology.org/badge/vertical-allrepos/headscale.svg)](https://repology.org/project/headscale/versions)
 
@@ -19,8 +19,6 @@ Arch Linux 提供了 headscale 软件包，可通过以下命令安装：
 ```shell
 pacman -S headscale
 ```
-
-可以使用 [AUR 软件包 `headscale-git`](https://aur.archlinux.org/packages/headscale-git) 来构建当前开发版本。
 
 ## Fedora、RHEL、CentOS
 

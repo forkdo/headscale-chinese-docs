@@ -14,5 +14,9 @@ Headscale 不提供内置网页界面，但用户可以从可用选项中选择�
 - [unraid-headscale-admin](https://github.com/ich777/unraid-headscale-admin) - 一个适用于 Unraid 的简单 headscale 管理界面，提供本地（`docker exec`）和 API 模式
 - [headscale-console](https://github.com/rickli-cloud/headscale-console) - 基于 WebAssembly 的客户端，支持 SSH、VNC 和 RDP，具备可选的自助服务功能
 - [headscale-piying](https://github.com/wszgrcy/headscale-piying) - headscale 网页界面，支持可视化 ACL 配置
+- [HeadControl](https://github.com/ahmadzip/HeadControl) - 极简的 Headscale 管理仪表盘，使用 Go 和 HTMX 构建
+- [Headscale Manager](https://github.com/hkdone/headscalemanager) - 适用于 Android 的 Headscale UI
+- [Headscale UI](https://github.com/MunMunMiao/headscale-ui) - 在线及自托管的 Headscale UI
+- [Headscale Panel](https://github.com/headscale-panel/panel) - 一个现代化的 Headscale 管理面板，具有简洁、以网络运维为核心的 UI
 
 您可以在我们的 [Discord 服务器](https://discord.gg/c84AZQhmpx) 的 "web-interfaces" 频道中寻求支持。

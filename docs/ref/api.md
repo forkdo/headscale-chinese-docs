@@ -1,9 +1,10 @@
 # API
-Headscale provides a [HTTP REST API](#rest-api) and a [gRPC interface](#grpc) which may be used to integrate a [web
-interface](integration/web-ui.md), [remote control Headscale](#setup-remote-control) or provide a base for custom
+
+Headscale provides a [HTTP REST API](#rest-api) which may be used to integrate a [web
+interface](integration/web-ui.md), [remote control Headscale](#remote-control) or provide a base for custom
 integration and tooling.
 
-Both interfaces require a valid API key before use. To create an API key, log into your Headscale server and generate
+The API requires a valid API key before use. To create an API key, log into your Headscale server and generate
 one with the default expiration of 90 days:
 
 ```shell
@@ -28,13 +29,12 @@ headscale apikeys expire --prefix <PREFIX>
 ## REST API
 
 - API endpoint: `/api/v1`, e.g. `https://headscale.example.com/api/v1`
-- Documentation: `/swagger`, e.g. `https://headscale.example.com/swagger`
+- Documentation: `/api/v1/docs`, e.g. `https://headscale.example.com/api/v1/docs`
 - Headscale Version: `/version`, e.g. `https://headscale.example.com/version`
-- Authenticate using HTTP Bearer authentication by sending the [API key](#api) with the HTTP `Authorization: Bearer
-  <API_KEY>` header.
+- Authenticate using HTTP Bearer authentication by sending the [API key](#api) with the HTTP `Authorization: Bearer <API_KEY>` header.
 
 Start by [creating an API key](#api) and test it with the examples below. Read the API documentation provided by your
-Headscale server at `/swagger` for details.
+Headscale server at `/api/v1/docs` for details.
 
 === "Get details for all users"
 
@@ -54,55 +54,54 @@ Headscale server at `/swagger` for details.
 
     ```console
     curl -H "Authorization: Bearer <API_KEY>" \
-        -d user=<USER> -d key=<REGISTRATION_KEY> \
-        https://headscale.example.com/api/v1/node/register
+        --json '{"user": "<USER>", "authId": "<AUTH_ID>"}' \
+        https://headscale.example.com/api/v1/auth/register
     ```
 
-## gRPC
+## Remote control
 
-The gRPC interface can be used to control a Headscale instance from a remote machine with the `headscale` binary.
+The `headscale` binary can control a Headscale instance from a remote machine over the HTTP API.
 
 ### Prerequisite
 
 - A workstation to run `headscale` (any supported platform, e.g. Linux).
-- A Headscale server with gRPC enabled.
-- Connections to the gRPC port (default: `50443`) are allowed.
-- Remote access requires an encrypted connection via TLS.
+- The Headscale server reachable over HTTP(S).
 - An [API key](#api) to authenticate with the Headscale server.
 
 ### Setup remote control
 
-1.  Download the [`headscale` binary from GitHub's release page](https://github.com/juanfont/headscale/releases). Make
-    sure to use the same version as on the server.
+1. Download the [`headscale` binary from GitHub's release page](https://github.com/juanfont/headscale/releases). Make
+   sure to use the same version as on the server.
 
-1.  Put the binary somewhere in your `PATH`, e.g. `/usr/local/bin/headscale`
+1. Put the binary somewhere in your `PATH`, e.g. `/usr/local/bin/headscale`
 
-1.  Make `headscale` executable: `chmod +x /usr/local/bin/headscale`
+1. Make `headscale` executable: `chmod +x /usr/local/bin/headscale`
 
-1.  [Create an API key](#api) on the Headscale server.
+1. [Create an API key](#api) on the Headscale server.
 
-1.  Provide the connection parameters for the remote Headscale server either via a minimal YAML configuration file or
-    via environment variables:
+1. Provide the connection parameters for the remote Headscale server either via a minimal YAML configuration file or
+   via environment variables:
 
     === "Minimal YAML configuration file"
 
         ```yaml title="config.yaml"
         cli:
-            address: <HEADSCALE_ADDRESS>:<PORT>
+            address: <HEADSCALE_URL>
             api_key: <API_KEY>
         ```
 
     === "Environment variables"
 
         ```shell
-        export HEADSCALE_CLI_ADDRESS="<HEADSCALE_ADDRESS>:<PORT>"
+        export HEADSCALE_CLI_ADDRESS="<HEADSCALE_URL>"
         export HEADSCALE_CLI_API_KEY="<API_KEY>"
         ```
 
-    This instructs the `headscale` binary to connect to a remote instance at `<HEADSCALE_ADDRESS>:<PORT>`, instead of
-    connecting to the local instance.
+    This instructs the `headscale` binary to connect to a remote instance at `<HEADSCALE_URL>` (e.g.
+    `https://headscale.example.com`), instead of connecting to the local instance. A bare host without a scheme is
+    assumed to be `https`.
 
-1.  Test the connection by listing all nodes:
+1. Test the connection by listing all nodes:
 
     ```shell
     headscale nodes list
@@ -113,15 +112,12 @@ The gRPC interface can be used to control a Headscale instance from a remote mac
 
 ### Behind a proxy
 
-It's possible to run the gRPC remote endpoint behind a reverse proxy, like Nginx, and have it run on the _same_ port as Headscale.
-
-While this is _not a supported_ feature, an example on how this can be set up on
-[NixOS is shown here](https://github.com/kradalby/dotfiles/blob/4489cdbb19cddfbfae82cd70448a38fde5a76711/machines/headscale.oracldn/headscale.nix#L61-L91).
+The remote CLI uses the same HTTP API as everything else, so it works through the reverse proxy already in front of
+Headscale with no extra setup.
 
 ### Troubleshooting
 
 - Make sure you have the _same_ Headscale version on your server and workstation.
-- Ensure that connections to the gRPC port are allowed.
 - Verify that your TLS certificate is valid and trusted.
 - If you don't have access to a trusted certificate (e.g. from Let's Encrypt), either:
     - Add your self-signed certificate to the trust store of your OS _or_
