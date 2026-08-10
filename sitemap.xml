@@ -1,131 +1,173 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://juanfont.github.io/headscale/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/about/clients/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/about/clients/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/about/contributing/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/about/contributing/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/about/faq/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/about/faq/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/about/features/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/about/features/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/about/help/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/about/help/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/about/releases/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/about/releases/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/about/sponsor/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/about/sponsor/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/acls/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/acls/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/api/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/api/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/configuration/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/configuration/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/debug/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/debug/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/derp/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/derp/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/dns/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/dns/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/oidc/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/oidc/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/registration/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/policy/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/routes/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/registration/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/tags/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/routes/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/tls/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/tags/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/integration/reverse-proxy/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/tls/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/integration/tools/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/integration/reverse-proxy/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/ref/integration/web-ui/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/integration/tools/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/setup/requirements/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/ref/integration/web-ui/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/setup/upgrade/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/setup/requirements/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/setup/install/community/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/setup/upgrade/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/setup/install/container/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/setup/install/community/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/setup/install/official/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/setup/install/container/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/setup/install/source/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/setup/install/main/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/usage/getting-started/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/setup/install/official/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/usage/connect/android/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/setup/install/source/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/usage/connect/apple/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/usage/getting-started/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://juanfont.github.io/headscale/usage/connect/windows/</loc>
-         <lastmod>2026-01-31</lastmod>
+        <loc>https://juanfont.github.io/headscale/usage/connect/android/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
+        <loc>https://juanfont.github.io/headscale/usage/connect/apple/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
+    </url>
+    <url>
+        <loc>https://juanfont.github.io/headscale/usage/connect/windows/</loc>
+        <lastmod>2026-08-10</lastmod>
+        <changefreq>daily</changefreq>
     </url>
 </urlset>
